@@ -27,4 +27,20 @@
     font-family: var(--font-heading);
     font-weight: 600;
   }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--color-bronze);
+    outline-offset: 2px;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hover-zoom img {
+    transition: transform 0.5s ease;
+  }
+
+  .hover-zoom:hover img {
+    transform: scale(1.05);
+  }
 }

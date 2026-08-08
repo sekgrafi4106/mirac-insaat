@@ -12,25 +12,26 @@ const navItems = [
 const currentPath = Astro.url.pathname;
 const isActive = (href: string) =>
   href === "/" ? currentPath === "/" : currentPath.startsWith(href);
+
+const navLinkClass = (href: string) =>
+  `inline-block border-b-2 pb-1 font-body text-xs font-medium uppercase tracking-widest transition-colors ${
+    isActive(href)
+      ? "border-bronze text-bronze"
+      : "border-transparent text-charcoal hover:border-bronze/40 hover:text-bronze"
+  }`;
 ---
 
 <header class="sticky top-0 z-50 border-b border-charcoal/10 bg-off-white/95 backdrop-blur-sm">
-  <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-    <a href="/" class="font-heading text-lg font-extrabold tracking-tight text-charcoal">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5 lg:px-8">
+    <a href="/" class="font-heading text-base font-extrabold tracking-tight text-charcoal md:text-lg">
       {company.name}
     </a>
 
     <nav class="hidden md:block" aria-label="Ana menü">
-      <ul class="flex items-center gap-8">
+      <ul class="flex items-center gap-10">
         {navItems.map((item) => (
           <li>
-            <a
-              href={item.href}
-              aria-current={isActive(item.href) ? "page" : undefined}
-              class={`font-body text-sm font-medium transition-colors hover:text-bronze ${
-                isActive(item.href) ? "text-bronze" : "text-charcoal"
-              }`}
-            >
+            <a href={item.href} aria-current={isActive(item.href) ? "page" : undefined} class={navLinkClass(item.href)}>
               {item.label}
             </a>
           </li>
@@ -43,7 +44,7 @@ const isActive = (href: string) =>
         href={company.whatsappHref}
         target="_blank"
         rel="noopener noreferrer"
-        class="hidden rounded-sm bg-bronze px-4 py-2 font-body text-sm font-medium text-off-white transition-colors hover:bg-bronze-light sm:inline-block"
+        class="hidden border border-bronze px-5 py-2 font-body text-xs font-semibold uppercase tracking-widest text-bronze transition-colors hover:bg-bronze hover:text-off-white sm:inline-block"
       >
         WhatsApp
       </a>
@@ -51,7 +52,7 @@ const isActive = (href: string) =>
       <button
         id="menu-toggle"
         type="button"
-        class="inline-flex items-center justify-center p-2 text-charcoal md:hidden"
+        class="inline-flex items-center justify-center p-1.5 text-charcoal md:hidden"
         aria-expanded="false"
         aria-controls="mobile-menu"
         aria-label="Menüyü aç"
@@ -73,8 +74,8 @@ const isActive = (href: string) =>
           <a
             href={item.href}
             aria-current={isActive(item.href) ? "page" : undefined}
-            class={`block py-2 font-body text-base font-medium transition-colors hover:text-bronze ${
-              isActive(item.href) ? "text-bronze" : "text-charcoal"
+            class={`block py-2 font-body text-sm font-medium uppercase tracking-widest transition-colors ${
+              isActive(item.href) ? "text-bronze" : "text-charcoal hover:text-bronze"
             }`}
           >
             {item.label}
@@ -86,7 +87,7 @@ const isActive = (href: string) =>
           href={company.whatsappHref}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-block rounded-sm bg-bronze px-4 py-2 font-body text-sm font-medium text-off-white transition-colors hover:bg-bronze-light"
+          class="inline-block border border-bronze px-5 py-2 font-body text-xs font-semibold uppercase tracking-widest text-bronze transition-colors hover:bg-bronze hover:text-off-white"
         >
           WhatsApp
         </a>

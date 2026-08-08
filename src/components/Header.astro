@@ -1,5 +1,7 @@
 ---
 import { company } from "../data/company";
+import BrandLogo from "./BrandLogo.astro";
+import { withBase } from "../lib/paths";
 
 const navItems = [
   { href: "/", label: "Ana Sayfa" },
@@ -10,8 +12,10 @@ const navItems = [
 ];
 
 const currentPath = Astro.url.pathname;
-const isActive = (href: string) =>
-  href === "/" ? currentPath === "/" : currentPath.startsWith(href);
+const isActive = (href: string) => {
+  const target = withBase(href);
+  return href === "/" ? currentPath === target : currentPath.startsWith(target);
+};
 
 const navLinkClass = (href: string) =>
   `inline-block border-b-2 pb-1 font-body text-xs font-medium uppercase tracking-widest transition-colors ${
@@ -23,15 +27,13 @@ const navLinkClass = (href: string) =>
 
 <header class="sticky top-0 z-50 border-b border-charcoal/10 bg-off-white/95 backdrop-blur-sm">
   <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5 lg:px-8">
-    <a href="/" class="font-heading text-base font-extrabold tracking-tight text-charcoal md:text-lg">
-      {company.name}
-    </a>
+    <BrandLogo />
 
     <nav class="hidden md:block" aria-label="Ana menü">
       <ul class="flex items-center gap-10">
         {navItems.map((item) => (
           <li>
-            <a href={item.href} aria-current={isActive(item.href) ? "page" : undefined} class={navLinkClass(item.href)}>
+            <a href={withBase(item.href)} aria-current={isActive(item.href) ? "page" : undefined} class={navLinkClass(item.href)}>
               {item.label}
             </a>
           </li>
@@ -72,7 +74,7 @@ const navLinkClass = (href: string) =>
       {navItems.map((item) => (
         <li>
           <a
-            href={item.href}
+            href={withBase(item.href)}
             aria-current={isActive(item.href) ? "page" : undefined}
             class={`block py-2 font-body text-sm font-medium uppercase tracking-widest transition-colors ${
               isActive(item.href) ? "text-bronze" : "text-charcoal hover:text-bronze"

@@ -2,7 +2,9 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHero from "../../components/PageHero.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
+import { company } from "../../data/company";
 import { projects } from "../../data/projects";
+import { withBase } from "../../lib/paths";
 
 const statusLabels: Record<string, string> = {
   "tamamlandi": "Tamamlandı",
@@ -15,36 +17,119 @@ const availableStatuses = Array.from(
 );
 
 const showFilters = availableStatuses.length > 1;
+
+const galleryImages = [
+  { src: "/images/projects/project-01.webp", width: 2000, height: 1141, focus: "object-center" },
+  { src: "/images/projects/project-02.webp", width: 2000, height: 1500, focus: "object-center" },
+  { src: "/images/projects/project-03.webp", width: 1576, height: 1981, focus: "object-[50%_78%]" },
+  { src: "/images/projects/project-04.webp", width: 1500, height: 2000, focus: "object-[50%_70%]" },
+  { src: "/images/projects/project-05.webp", width: 1500, height: 2000, focus: "object-[50%_58%]" },
+  { src: "/images/projects/project-06.webp", width: 1500, height: 2000, focus: "object-[50%_62%]" },
+].map((image) => ({ ...image, src: withBase(image.src) }));
 ---
 
 <BaseLayout
   title="Projeler | Miraç İnşaat"
-  description="Miraç İnşaat'ın İstanbul ve Kocaeli'de yürüttüğü proje portföyü."
+  description="Miraç İnşaat'ın gerçekleştirdiği yapı çalışmalarından seçili görseller."
 >
   <PageHero
     eyebrow="Projeler"
-    title="Proje Portföyümüz"
-    description="İstanbul ve Kocaeli'de yürüttüğümüz projeler."
+    title="Yaptığımız İşler, En Güçlü Referansımız."
+    description="Miraç İnşaat'ın gerçekleştirdiği yapı çalışmalarından seçili görseller."
   />
 
+  <!-- EDITORIAL GALLERY -->
   <section class="mx-auto max-w-6xl px-6 py-16 md:py-20">
-    {projects.length === 0 ? (
-      <div class="border border-charcoal/10 px-6 py-24 text-center md:py-32">
-        <span class="mx-auto block h-px w-16 bg-bronze"></span>
-        <p class="mx-auto mt-8 max-w-xl font-heading text-2xl font-semibold leading-snug text-charcoal md:text-3xl">
-          Gerçekleştirdiğimiz yapılar ve proje çalışmalarımız bu alanda sergilenmektedir.
-        </p>
-        <a
-          href="/iletisim"
-          class="mt-10 inline-block bg-bronze px-6 py-3 font-body text-sm font-medium text-off-white transition-colors hover:bg-bronze-light"
+    <div class="flex flex-col gap-4">
+      <!-- Full-width block -->
+      <button
+        type="button"
+        data-lightbox-trigger
+        data-src={galleryImages[0].src}
+        data-alt="Miraç İnşaat tarafından inşa edilen bir bina dış cephesi 1"
+        class="hover-zoom aspect-[16/9] w-full overflow-hidden bg-charcoal md:aspect-[21/9]"
+      >
+        <img
+          src={galleryImages[0].src}
+          width={galleryImages[0].width}
+          height={galleryImages[0].height}
+          alt="Miraç İnşaat tarafından inşa edilen bir bina dış cephesi 1"
+          loading="eager"
+          decoding="async"
+          class={`h-full w-full object-cover ${galleryImages[0].focus}`}
+        />
+      </button>
+
+      <!-- Split block: wide + tall -->
+      <div class="grid gap-4 sm:grid-cols-[1.6fr_1fr] sm:h-[420px] md:h-[520px]">
+        <button
+          type="button"
+          data-lightbox-trigger
+          data-src={galleryImages[1].src}
+          data-alt="Miraç İnşaat tarafından inşa edilen bir bina dış cephesi 2"
+          class="hover-zoom aspect-[4/3] w-full overflow-hidden bg-charcoal sm:aspect-auto sm:h-full"
         >
-          İletişime Geçin
-        </a>
+          <img
+            src={galleryImages[1].src}
+            width={galleryImages[1].width}
+            height={galleryImages[1].height}
+            alt="Miraç İnşaat tarafından inşa edilen bir bina dış cephesi 2"
+            loading="lazy"
+            decoding="async"
+            class={`h-full w-full object-cover ${galleryImages[1].focus}`}
+          />
+        </button>
+        <button
+          type="button"
+          data-lightbox-trigger
+          data-src={galleryImages[2].src}
+          data-alt="Miraç İnşaat tarafından inşa edilen bir bina dış cephesi 3"
+          class="hover-zoom aspect-[3/4] w-full overflow-hidden bg-charcoal sm:aspect-auto sm:h-full"
+        >
+          <img
+            src={galleryImages[2].src}
+            width={galleryImages[2].width}
+            height={galleryImages[2].height}
+            alt="Miraç İnşaat tarafından inşa edilen bir bina dış cephesi 3"
+            loading="lazy"
+            decoding="async"
+            class={`h-full w-full object-cover ${galleryImages[2].focus}`}
+          />
+        </button>
       </div>
-    ) : (
-      <>
+
+      <!-- Split block: three-up -->
+      <div class="grid gap-4 sm:grid-cols-3 sm:h-[320px] md:h-[400px]">
+        {galleryImages.slice(3).map((image, index) => (
+          <button
+            type="button"
+            data-lightbox-trigger
+            data-src={image.src}
+            data-alt={`Miraç İnşaat tarafından inşa edilen bir bina dış cephesi ${index + 4}`}
+            class="hover-zoom aspect-[3/4] w-full overflow-hidden bg-charcoal sm:aspect-auto sm:h-full"
+          >
+            <img
+              src={image.src}
+              width={image.width}
+              height={image.height}
+              alt={`Miraç İnşaat tarafından inşa edilen bir bina dış cephesi ${index + 4}`}
+              loading="lazy"
+              decoding="async"
+              class={`h-full w-full object-cover ${image.focus}`}
+            />
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {
+    projects.length > 0 && (
+      <section class="border-t border-charcoal/10 mx-auto max-w-6xl px-6 py-16 md:py-20">
+        <h2 class="font-heading text-2xl font-bold text-charcoal md:text-3xl">Belgelenen Projeler</h2>
+
         {showFilters && (
-          <div id="project-filters" class="mb-10 flex flex-wrap gap-3" role="group" aria-label="Projeleri filtrele">
+          <div id="project-filters" class="mt-8 flex flex-wrap gap-3" role="group" aria-label="Projeleri filtrele">
             <button
               type="button"
               data-filter="all"
@@ -66,38 +151,131 @@ const showFilters = availableStatuses.length > 1;
           </div>
         )}
 
-        <div id="project-grid" class="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+        <div id="project-grid" class="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (
             <ProjectCard project={project} />
           ))}
         </div>
-      </>
-    )}
+      </section>
+    )
+  }
+
+  <!-- CTA -->
+  <section class="bg-dark text-off-white">
+    <div class="mx-auto max-w-4xl px-6 py-20 text-center md:py-24">
+      <span class="mx-auto block h-px w-16 bg-bronze" aria-hidden="true"></span>
+      <h2 class="mt-8 font-heading text-3xl font-bold leading-tight md:text-5xl">
+        Yeni Bir Proje İçin Görüşelim.
+      </h2>
+      <div class="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:justify-center">
+        <a
+          href={company.whatsappHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-bronze px-7 py-3.5 text-center font-body text-sm font-medium tracking-wide text-off-white transition-colors hover:bg-bronze-light"
+        >
+          WhatsApp
+        </a>
+        <a
+          href={withBase("/iletisim")}
+          class="border border-off-white/60 px-7 py-3.5 text-center font-body text-sm font-medium tracking-wide text-off-white transition-colors hover:border-off-white hover:bg-off-white/10"
+        >
+          İletişim
+        </a>
+      </div>
+    </div>
   </section>
+
+  <!-- LIGHTBOX -->
+  <div
+    id="lightbox"
+    class="fixed inset-0 z-[100] hidden bg-dark/95 p-4 sm:p-10"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Görsel önizleme"
+  >
+    <button
+      id="lightbox-close"
+      type="button"
+      class="absolute right-4 top-4 p-2 text-off-white transition-colors hover:text-bronze-light sm:right-8 sm:top-8"
+      aria-label="Görseli kapat"
+    >
+      <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <img id="lightbox-image" src="" alt="" class="mx-auto h-full max-h-full w-auto max-w-full object-contain" />
+  </div>
 </BaseLayout>
 
-{showFilters && (
-  <script>
-    const buttons = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
-    const cards = document.querySelectorAll<HTMLElement>("#project-grid > [data-status]");
+{
+  showFilters && (
+    <script>
+      const buttons = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+      const cards = document.querySelectorAll<HTMLElement>("#project-grid > [data-status]");
 
-    buttons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const filter = button.dataset.filter;
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const filter = button.dataset.filter;
 
-        buttons.forEach((b) => {
-          b.setAttribute("aria-pressed", String(b === button));
-          b.classList.toggle("bg-charcoal", b === button);
-          b.classList.toggle("text-off-white", b === button);
-          b.classList.toggle("border-charcoal", b === button);
-          b.classList.toggle("border-charcoal/30", b !== button);
-        });
+          buttons.forEach((b) => {
+            b.setAttribute("aria-pressed", String(b === button));
+            b.classList.toggle("bg-charcoal", b === button);
+            b.classList.toggle("text-off-white", b === button);
+            b.classList.toggle("border-charcoal", b === button);
+            b.classList.toggle("border-charcoal/30", b !== button);
+          });
 
-        cards.forEach((card) => {
-          const matches = filter === "all" || card.dataset.status === filter;
-          card.classList.toggle("hidden", !matches);
+          cards.forEach((card) => {
+            const matches = filter === "all" || card.dataset.status === filter;
+            card.classList.toggle("hidden", !matches);
+          });
         });
       });
-    });
-  </script>
-)}
+    </script>
+  )
+}
+
+<script>
+  const triggers = document.querySelectorAll<HTMLButtonElement>("[data-lightbox-trigger]");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImage = document.getElementById("lightbox-image") as HTMLImageElement | null;
+  const closeButton = document.getElementById("lightbox-close");
+  let lastFocused: HTMLElement | null = null;
+
+  function openLightbox(trigger: HTMLButtonElement) {
+    if (!lightbox || !lightboxImage) return;
+    lastFocused = trigger;
+    lightboxImage.src = trigger.dataset.src ?? "";
+    lightboxImage.alt = trigger.dataset.alt ?? "";
+    lightbox.classList.remove("hidden");
+    lightbox.classList.add("flex", "items-center", "justify-center");
+    document.body.classList.add("overflow-hidden");
+    closeButton?.focus();
+  }
+
+  function closeLightbox() {
+    if (!lightbox || !lightboxImage) return;
+    lightbox.classList.add("hidden");
+    lightbox.classList.remove("flex", "items-center", "justify-center");
+    document.body.classList.remove("overflow-hidden");
+    lightboxImage.src = "";
+    lastFocused?.focus();
+  }
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => openLightbox(trigger));
+  });
+
+  closeButton?.addEventListener("click", closeLightbox);
+
+  lightbox?.addEventListener("click", (event) => {
+    if (event.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && lightbox && !lightbox.classList.contains("hidden")) {
+      closeLightbox();
+    }
+  });
+</script>

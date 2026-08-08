@@ -1,5 +1,6 @@
 ---
 import type { Project } from "../data/projects";
+import { withBase } from "../lib/paths";
 
 interface Props {
   project: Project;
@@ -16,11 +17,11 @@ const statusLabels: Record<NonNullable<Project["status"]>, string> = {
 const meta = [project.location, project.completionDate].filter(Boolean).join(" · ");
 ---
 
-<a href={`/projeler/${project.slug}`} class="group block" data-status={project.status ?? ""}>
+<a href={withBase(`/projeler/${project.slug}`)} class="group block" data-status={project.status ?? ""}>
   <div class="relative aspect-[4/3] overflow-hidden bg-charcoal">
     {project.coverImage ? (
       <img
-        src={project.coverImage}
+        src={withBase(project.coverImage)}
         alt={project.title}
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         loading="lazy"

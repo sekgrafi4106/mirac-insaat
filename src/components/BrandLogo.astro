@@ -1,0 +1,39 @@
+---
+import { withBase } from "../lib/paths";
+
+interface Props {
+  theme?: "charcoal" | "off-white";
+  class?: string;
+}
+
+const { theme = "charcoal", class: className = "" } = Astro.props;
+
+const textColor = theme === "charcoal" ? "text-charcoal" : "text-off-white";
+const subColor = theme === "charcoal" ? "text-charcoal/55" : "text-off-white/55";
+---
+
+<a
+  href={withBase("/")}
+  class={`inline-flex items-center gap-3 ${textColor} ${className}`}
+  aria-label="Miraç İnşaat - Ana Sayfa"
+>
+  <svg viewBox="0 0 40 40" class="h-8 w-8 shrink-0 sm:h-9 sm:w-9" aria-hidden="true">
+    <polyline
+      points="4,34 4,6 20,26 36,6 36,34"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="4"
+      stroke-linecap="square"
+      stroke-linejoin="miter"
+    ></polyline>
+    <line x1="4" y1="34" x2="4" y2="38" stroke="var(--color-bronze)" stroke-width="4" stroke-linecap="square"></line>
+    <line x1="36" y1="34" x2="36" y2="38" stroke="var(--color-bronze)" stroke-width="4" stroke-linecap="square"></line>
+  </svg>
+
+  <span class="flex flex-col leading-none">
+    <span class="font-heading text-lg font-extrabold tracking-tight sm:text-xl">MİRAÇ</span>
+    <span class={`mt-1 font-heading text-[10px] font-semibold uppercase tracking-[0.3em] ${subColor}`}>
+      İNŞAAT
+    </span>
+  </span>
+</a>

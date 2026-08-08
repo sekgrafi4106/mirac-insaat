@@ -1,73 +1,117 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import PageHero from "../components/PageHero.astro";
 import { company } from "../data/company";
+import { services } from "../data/services";
+import { withBase } from "../lib/paths";
 ---
 
 <BaseLayout
   title="Hakkımızda | Miraç İnşaat"
-  description="Miraç İnşaat, 2015 yılından bu yana İstanbul ve Kocaeli'de inşaat projeleri yürütmektedir."
+  description="Miraç İnşaat, Mehmet Gönül yönetiminde 2015 yılında kurulmuştur. İstanbul ve Kocaeli'de konut ve farklı yapı projeleri alanında faaliyet göstermektedir."
 >
-  <PageHero
-    eyebrow="Hakkımızda"
-    title={company.name}
-    description={`${company.foundedYear} yılından bu yana ${company.regions.join(" ve ")} bölgelerinde inşaat projeleri yürütüyoruz.`}
-  />
+  <!-- HERO -->
+  <section class="relative flex min-h-[420px] items-end overflow-hidden md:min-h-[520px]">
+    <img
+      src={withBase("/images/projects/project-02.webp")}
+      alt="Miraç İnşaat tarafından inşa edilen bir bina dış cephesi"
+      width="2000"
+      height="1500"
+      class="absolute inset-0 h-full w-full object-cover"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/45 to-dark/10" aria-hidden="true"></div>
 
-  <section class="mx-auto max-w-4xl px-6 py-20">
-    <p class="font-body text-lg leading-relaxed text-charcoal/80">
-      {company.legalName}, {company.owner} liderliğinde {company.foundedYear} yılında kurulmuş bir inşaat
-      şirketidir. {company.regions.join(" ve ")} bölgelerinde konut ve ticari yapı projeleri üzerine
-      çalışmalar yürütmektedir.
-    </p>
-  </section>
-
-  <section class="border-y border-charcoal/10 bg-dark text-off-white">
-    <div class="mx-auto max-w-4xl px-6 py-16 text-center">
-      <p class="font-heading text-6xl font-bold text-bronze-light md:text-7xl">{company.foundedYear}</p>
-      <p class="mt-3 font-body text-sm font-medium uppercase tracking-widest text-off-white/60">
-        Kuruluş Yılı
+    <div class="relative mx-auto w-full max-w-6xl px-6 pb-14 pt-20 md:pb-20">
+      <p class="font-body text-xs font-semibold uppercase tracking-[0.2em] text-bronze-light">
+        {company.legalName} / {company.foundedYear}
       </p>
+      <h1 class="mt-3 max-w-3xl font-heading text-4xl font-bold leading-[1.1] text-off-white md:text-5xl">
+        2015'ten Bugüne Yapılar Üretiyoruz.
+      </h1>
     </div>
   </section>
 
-  <section class="mx-auto max-w-4xl px-6 py-20">
-    <h2 class="font-heading text-2xl font-semibold text-charcoal md:text-3xl">Faaliyet Bölgeleri</h2>
-    <ul class="mt-6 flex flex-wrap gap-4">
-      {company.regions.map((region) => (
-        <li class="border border-charcoal/15 px-5 py-2 font-body text-base text-charcoal">
-          {region}
-        </li>
-      ))}
-    </ul>
-  </section>
-
-  <section class="mx-auto max-w-4xl px-6 py-20">
-    <h2 class="font-heading text-2xl font-semibold text-charcoal md:text-3xl">Yaklaşımımız</h2>
-    <p class="mt-6 font-body text-lg leading-relaxed text-charcoal/80">
-      Projelerimizi, bulunduğu bölgenin koşullarını ve ihtiyaçlarını gözeterek planlıyor; süreç boyunca
-      işçilik ve uygulama takibine önem veriyoruz. Her proje kendi ölçeği ve bağlamı içinde
-      değerlendirilir.
+  <!-- INTRO -->
+  <section class="mx-auto max-w-3xl px-6 py-16 md:py-20">
+    <p class="font-body text-lg leading-relaxed text-charcoal/80">
+      {company.legalName}, {company.owner} yönetiminde {company.foundedYear} yılında kurulmuştur.{" "}
+      {company.regions.join(" ve ")}'de konut ve farklı yapı projeleri alanında faaliyet göstermektedir.
     </p>
   </section>
 
+  <!-- FACTUAL HIGHLIGHT -->
+  <section class="bg-charcoal text-off-white">
+    <div class="mx-auto grid max-w-6xl grid-cols-1 divide-y divide-off-white/10 px-6 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+      <div class="px-6 py-12 text-center">
+        <p class="font-heading text-5xl font-bold text-bronze-light md:text-6xl">{company.foundedYear}</p>
+        <p class="mt-3 font-body text-xs font-medium uppercase tracking-[0.15em] text-off-white/60">Kuruluş</p>
+      </div>
+      <div class="px-6 py-12 text-center">
+        <p class="font-heading text-2xl font-bold text-bronze-light md:text-3xl">
+          {company.regions.join(" & ")}
+        </p>
+        <p class="mt-3 font-body text-xs font-medium uppercase tracking-[0.15em] text-off-white/60">
+          Faaliyet Bölgesi
+        </p>
+      </div>
+      <div class="px-6 py-12 text-center">
+        <p class="font-heading text-5xl font-bold text-bronze-light md:text-6xl">{services.length}</p>
+        <p class="mt-3 font-body text-xs font-medium uppercase tracking-[0.15em] text-off-white/60">
+          Hizmet Alanı
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
   <section class="border-t border-charcoal/10 bg-off-white">
-    <div class="mx-auto flex max-w-4xl flex-col items-start gap-6 px-6 py-20 md:flex-row md:items-center md:justify-between">
-      <h2 class="font-heading text-2xl font-semibold text-charcoal md:text-3xl">
-        Projelerimizi inceleyin veya bizimle iletişime geçin.
-      </h2>
-      <div class="flex shrink-0 gap-4">
+    <div class="mx-auto grid max-w-6xl gap-10 px-6 py-16 md:grid-cols-[45fr_55fr] md:items-stretch md:gap-14 md:py-20">
+      <div class="flex flex-col justify-center">
+        <h2 class="font-heading text-3xl font-bold text-charcoal md:text-4xl">Çalışma Alanlarımız</h2>
+        <p class="mt-6 font-body text-lg leading-relaxed text-charcoal/80">
+          {company.legalName}; konut yapımı, kentsel dönüşüm, anahtar teslim uygulamalar ve ilgili yapı
+          hizmetleri alanlarında çalışmalarını sürdürmektedir.
+        </p>
+      </div>
+      <div class="aspect-[4/3] overflow-hidden bg-charcoal md:aspect-auto md:min-h-[420px]">
+        <img
+          src={withBase("/images/projects/project-05.webp")}
+          width="1500"
+          height="2000"
+          alt="Miraç İnşaat tarafından inşa edilen bir bina dış cephesi"
+          loading="lazy"
+          decoding="async"
+          class="h-full w-full object-cover object-[50%_58%]"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- OWNER -->
+  <section class="mx-auto max-w-3xl px-6 py-16 text-center md:py-20">
+    <p class="font-body text-xs font-semibold uppercase tracking-[0.2em] text-bronze">Yönetim</p>
+    <h2 class="mt-3 font-heading text-2xl font-bold text-charcoal md:text-3xl">{company.owner}</h2>
+    <p class="mt-4 font-body text-base text-charcoal/70">Miraç İnşaat'ın kurucusu ve yöneticisi.</p>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="border-t border-charcoal/10 bg-dark text-off-white">
+    <div class="mx-auto flex max-w-4xl flex-col items-center gap-8 px-6 py-20 text-center md:py-24">
+      <span class="block h-px w-16 bg-bronze" aria-hidden="true"></span>
+      <div class="flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:flex-wrap sm:justify-center">
         <a
-          href="/projeler"
-          class="border border-charcoal px-6 py-3 font-body text-sm font-medium text-charcoal transition-colors hover:border-bronze hover:text-bronze"
+          href={withBase("/projeler")}
+          class="bg-bronze px-7 py-3.5 text-center font-body text-sm font-medium tracking-wide text-off-white transition-colors hover:bg-bronze-light"
         >
-          Projeler
+          Projelerimizi İnceleyin
         </a>
         <a
-          href="/iletisim"
-          class="bg-bronze px-6 py-3 font-body text-sm font-medium text-off-white transition-colors hover:bg-bronze-light"
+          href={withBase("/iletisim")}
+          class="border border-off-white/60 px-7 py-3.5 text-center font-body text-sm font-medium tracking-wide text-off-white transition-colors hover:border-off-white hover:bg-off-white/10"
         >
-          İletişim
+          İletişime Geçin
         </a>
       </div>
     </div>

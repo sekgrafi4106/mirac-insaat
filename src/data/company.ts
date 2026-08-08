@@ -8,6 +8,8 @@ export interface CompanyInfo {
   phoneHref: string;
   whatsapp: string;
   whatsappHref: string;
+  instagramHandle: string;
+  instagramHref: string;
   address: string | null;
   email: string | null;
 }
@@ -22,6 +24,8 @@ export const company: CompanyInfo = {
   phoneHref: "tel:+905321785274",
   whatsapp: "+90 532 178 52 74",
   whatsappHref: "https://wa.me/905321785274",
+  instagramHandle: "@miracinsaat4141",
+  instagramHref: "https://instagram.com/miracinsaat4141",
   address: null,
   email: null,
 };

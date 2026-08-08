@@ -1,0 +1,103 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { projects } from "../../data/projects";
+
+const statusLabels: Record<string, string> = {
+  "tamamlandi": "Tamamlandı",
+  "devam-ediyor": "Devam Ediyor",
+  "planlanan": "Planlanan",
+};
+
+const availableStatuses = Array.from(
+  new Set(projects.map((project) => project.status).filter((status): status is string => Boolean(status)))
+);
+
+const showFilters = availableStatuses.length > 1;
+---
+
+<BaseLayout
+  title="Projeler | Miraç İnşaat"
+  description="Miraç İnşaat'ın İstanbul ve Kocaeli'de yürüttüğü proje portföyü."
+>
+  <PageHero
+    eyebrow="Projeler"
+    title="Proje Portföyümüz"
+    description="İstanbul ve Kocaeli'de yürüttüğümüz projeler."
+  />
+
+  <section class="mx-auto max-w-6xl px-6 py-16 md:py-20">
+    {projects.length === 0 ? (
+      <div class="border border-charcoal/10 px-6 py-24 text-center md:py-32">
+        <span class="mx-auto block h-px w-16 bg-bronze"></span>
+        <p class="mx-auto mt-8 max-w-xl font-heading text-2xl font-semibold leading-snug text-charcoal md:text-3xl">
+          Gerçekleştirdiğimiz yapılar ve proje çalışmalarımız bu alanda sergilenmektedir.
+        </p>
+        <a
+          href="/iletisim"
+          class="mt-10 inline-block bg-bronze px-6 py-3 font-body text-sm font-medium text-off-white transition-colors hover:bg-bronze-light"
+        >
+          İletişime Geçin
+        </a>
+      </div>
+    ) : (
+      <>
+        {showFilters && (
+          <div id="project-filters" class="mb-10 flex flex-wrap gap-3" role="group" aria-label="Projeleri filtrele">
+            <button
+              type="button"
+              data-filter="all"
+              class="filter-btn border border-charcoal px-4 py-2 font-body text-sm font-medium text-charcoal transition-colors"
+              aria-pressed="true"
+            >
+              Tümü
+            </button>
+            {availableStatuses.map((status) => (
+              <button
+                type="button"
+                data-filter={status}
+                class="filter-btn border border-charcoal/30 px-4 py-2 font-body text-sm font-medium text-charcoal transition-colors"
+                aria-pressed="false"
+              >
+                {statusLabels[status] ?? status}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <div id="project-grid" class="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project) => (
+            <ProjectCard project={project} />
+          ))}
+        </div>
+      </>
+    )}
+  </section>
+</BaseLayout>
+
+{showFilters && (
+  <script>
+    const buttons = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+    const cards = document.querySelectorAll<HTMLElement>("#project-grid > [data-status]");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.dataset.filter;
+
+        buttons.forEach((b) => {
+          b.setAttribute("aria-pressed", String(b === button));
+          b.classList.toggle("bg-charcoal", b === button);
+          b.classList.toggle("text-off-white", b === button);
+          b.classList.toggle("border-charcoal", b === button);
+          b.classList.toggle("border-charcoal/30", b !== button);
+        });
+
+        cards.forEach((card) => {
+          const matches = filter === "all" || card.dataset.status === filter;
+          card.classList.toggle("hidden", !matches);
+        });
+      });
+    });
+  </script>
+)}

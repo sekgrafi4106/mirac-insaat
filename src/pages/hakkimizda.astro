@@ -1,0 +1,75 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import { company } from "../data/company";
+---
+
+<BaseLayout
+  title="Hakkımızda | Miraç İnşaat"
+  description="Miraç İnşaat, 2015 yılından bu yana İstanbul ve Kocaeli'de inşaat projeleri yürütmektedir."
+>
+  <PageHero
+    eyebrow="Hakkımızda"
+    title={company.name}
+    description={`${company.foundedYear} yılından bu yana ${company.regions.join(" ve ")} bölgelerinde inşaat projeleri yürütüyoruz.`}
+  />
+
+  <section class="mx-auto max-w-4xl px-6 py-20">
+    <p class="font-body text-lg leading-relaxed text-charcoal/80">
+      {company.legalName}, {company.owner} liderliğinde {company.foundedYear} yılında kurulmuş bir inşaat
+      şirketidir. {company.regions.join(" ve ")} bölgelerinde konut ve ticari yapı projeleri üzerine
+      çalışmalar yürütmektedir.
+    </p>
+  </section>
+
+  <section class="border-y border-charcoal/10 bg-dark text-off-white">
+    <div class="mx-auto max-w-4xl px-6 py-16 text-center">
+      <p class="font-heading text-6xl font-bold text-bronze-light md:text-7xl">{company.foundedYear}</p>
+      <p class="mt-3 font-body text-sm font-medium uppercase tracking-widest text-off-white/60">
+        Kuruluş Yılı
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-6 py-20">
+    <h2 class="font-heading text-2xl font-semibold text-charcoal md:text-3xl">Faaliyet Bölgeleri</h2>
+    <ul class="mt-6 flex flex-wrap gap-4">
+      {company.regions.map((region) => (
+        <li class="border border-charcoal/15 px-5 py-2 font-body text-base text-charcoal">
+          {region}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-6 py-20">
+    <h2 class="font-heading text-2xl font-semibold text-charcoal md:text-3xl">Yaklaşımımız</h2>
+    <p class="mt-6 font-body text-lg leading-relaxed text-charcoal/80">
+      Projelerimizi, bulunduğu bölgenin koşullarını ve ihtiyaçlarını gözeterek planlıyor; süreç boyunca
+      işçilik ve uygulama takibine önem veriyoruz. Her proje kendi ölçeği ve bağlamı içinde
+      değerlendirilir.
+    </p>
+  </section>
+
+  <section class="border-t border-charcoal/10 bg-off-white">
+    <div class="mx-auto flex max-w-4xl flex-col items-start gap-6 px-6 py-20 md:flex-row md:items-center md:justify-between">
+      <h2 class="font-heading text-2xl font-semibold text-charcoal md:text-3xl">
+        Projelerimizi inceleyin veya bizimle iletişime geçin.
+      </h2>
+      <div class="flex shrink-0 gap-4">
+        <a
+          href="/projeler"
+          class="border border-charcoal px-6 py-3 font-body text-sm font-medium text-charcoal transition-colors hover:border-bronze hover:text-bronze"
+        >
+          Projeler
+        </a>
+        <a
+          href="/iletisim"
+          class="bg-bronze px-6 py-3 font-body text-sm font-medium text-off-white transition-colors hover:bg-bronze-light"
+        >
+          İletişim
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

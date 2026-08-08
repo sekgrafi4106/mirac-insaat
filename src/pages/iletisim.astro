@@ -1,0 +1,63 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import { company } from "../data/company";
+
+const contactMethods = [
+  {
+    label: "Telefon",
+    value: company.phone,
+    href: company.phoneHref,
+    external: false,
+  },
+  {
+    label: "WhatsApp",
+    value: company.whatsapp,
+    href: company.whatsappHref,
+    external: true,
+  },
+  {
+    label: "Instagram",
+    value: company.instagramHandle,
+    href: company.instagramHref,
+    external: true,
+  },
+];
+---
+
+<BaseLayout
+  title="İletişim | Miraç İnşaat"
+  description="Miraç İnşaat ile telefon, WhatsApp veya Instagram üzerinden iletişime geçin."
+>
+  <PageHero
+    eyebrow="İletişim"
+    title="Bize Ulaşın"
+    description="Projeleriniz hakkında konuşmak için telefon, WhatsApp veya Instagram üzerinden bizimle iletişime geçebilirsiniz."
+  />
+
+  <section class="mx-auto max-w-4xl px-6 py-16 md:py-20">
+    <ul class="border-t border-charcoal/10">
+      {contactMethods.map((method) => (
+        <li class="border-b border-charcoal/10 py-8">
+          <a
+            href={method.href}
+            target={method.external ? "_blank" : undefined}
+            rel={method.external ? "noopener noreferrer" : undefined}
+            class="group flex flex-col justify-between gap-2 md:flex-row md:items-baseline"
+          >
+            <span class="font-body text-sm font-medium uppercase tracking-widest text-bronze">
+              {method.label}
+            </span>
+            <span class="font-heading text-2xl font-semibold text-charcoal transition-colors group-hover:text-bronze md:text-3xl">
+              {method.value}
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <p class="mt-10 font-body text-sm text-charcoal/50">
+      {company.regions.join(" ve ")} bölgelerinde faaliyet göstermekteyiz.
+    </p>
+  </section>
+</BaseLayout>

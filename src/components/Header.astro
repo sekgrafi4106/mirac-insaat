@@ -8,6 +8,10 @@ const navItems = [
   { href: "/hizmetler", label: "Hizmetler" },
   { href: "/iletisim", label: "İletişim" },
 ];
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/" ? currentPath === "/" : currentPath.startsWith(href);
 ---
 
 <header class="sticky top-0 z-50 border-b border-charcoal/10 bg-off-white/95 backdrop-blur-sm">
@@ -22,7 +26,10 @@ const navItems = [
           <li>
             <a
               href={item.href}
-              class="font-body text-sm font-medium text-charcoal transition-colors hover:text-bronze"
+              aria-current={isActive(item.href) ? "page" : undefined}
+              class={`font-body text-sm font-medium transition-colors hover:text-bronze ${
+                isActive(item.href) ? "text-bronze" : "text-charcoal"
+              }`}
             >
               {item.label}
             </a>
@@ -65,7 +72,10 @@ const navItems = [
         <li>
           <a
             href={item.href}
-            class="block py-2 font-body text-base font-medium text-charcoal transition-colors hover:text-bronze"
+            aria-current={isActive(item.href) ? "page" : undefined}
+            class={`block py-2 font-body text-base font-medium transition-colors hover:text-bronze ${
+              isActive(item.href) ? "text-bronze" : "text-charcoal"
+            }`}
           >
             {item.label}
           </a>

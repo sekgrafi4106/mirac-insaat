@@ -1,0 +1,54 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import { services } from "../data/services";
+---
+
+<BaseLayout
+  title="Hizmetler | Miraç İnşaat"
+  description="Miraç İnşaat'ın İstanbul ve Kocaeli'de sunduğu hizmet alanları: konut projeleri, kat karşılığı inşaat, kentsel dönüşüm, anahtar teslim, villa projeleri, ticari yapılar ve tadilat."
+>
+  <PageHero
+    eyebrow="Hizmetler"
+    title="Sunduğumuz Hizmetler"
+    description="İstanbul ve Kocaeli'de yürüttüğümüz proje süreçlerinde sunduğumuz temel hizmet alanları."
+  />
+
+  <section class="mx-auto max-w-5xl px-6 py-16 md:py-20">
+    <ul class="border-t border-charcoal/10">
+      {services.map((service, index) => (
+        <li class="group border-b border-charcoal/10 py-8 md:py-10">
+          <div class="flex flex-col gap-2 md:flex-row md:items-baseline md:gap-10">
+            <span class="font-heading text-xl font-semibold text-bronze md:w-20 md:text-2xl">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <div class="flex-1">
+              <h2 class="font-heading text-2xl font-semibold text-charcoal transition-colors md:text-4xl">
+                {service.title}
+              </h2>
+              {service.description && (
+                <p class="mt-3 max-w-2xl font-body text-base leading-relaxed text-charcoal/70">
+                  {service.description}
+                </p>
+              )}
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="border-t border-charcoal/10 bg-off-white">
+    <div class="mx-auto flex max-w-4xl flex-col items-start gap-6 px-6 py-20 md:flex-row md:items-center md:justify-between">
+      <h2 class="font-heading text-2xl font-semibold text-charcoal md:text-3xl">
+        Projeniz hakkında konuşmak ister misiniz?
+      </h2>
+      <a
+        href="/iletisim"
+        class="shrink-0 bg-bronze px-6 py-3 font-body text-sm font-medium text-off-white transition-colors hover:bg-bronze-light"
+      >
+        İletişime Geçin
+      </a>
+    </div>
+  </section>
+</BaseLayout>

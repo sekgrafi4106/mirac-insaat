@@ -1,1 +1,30 @@
 @import "tailwindcss";
+
+@theme {
+  --font-heading: "Manrope", sans-serif;
+  --font-body: "Inter", sans-serif;
+
+  --color-charcoal: #202326;
+  --color-dark: #161819;
+  --color-off-white: #f5f3ef;
+  --color-bronze: #a87545;
+  --color-bronze-light: #c49361;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-off-white);
+    color: var(--color-charcoal);
+    font-family: var(--font-body);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+  }
+}
